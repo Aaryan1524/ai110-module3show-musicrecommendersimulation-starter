@@ -1,0 +1,3 @@
+# Reflection
+
+Comparing "Deep Intense Rock" vs "Adversarial Edge Case": both users requested an energy level of 0.95. However, the Rock profile found a perfect match ("Storm Runner", score: 3.96) because a high-energy rock song exists in the dataset. In contrast, the Adversarial profile (Intense Classical at 0.95 energy) received completely bizarre recommendations like a "Sad Piano" track and a "Deep Bass" EDM track. This demonstrates an extreme fallback failure state—when the dataset lacks representation for a specific combination of preferences, the algorithm defaults to irrelevant matches purely based on partial points from energy similarity. This perfectly highlights how dataset limitations dictate recommendation quality regardless of the algorithm's sophistication.
