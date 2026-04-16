@@ -11,25 +11,32 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
+This project implements a simplified content-based music recommender system. Real-world platforms like Spotify or YouTube use a mix of collaborative filtering (suggesting based on similar users' interactions and listening habits) and content-based filtering (suggesting based on song metadata like energy, valence, genre, etc.). Our version focuses primarily on the **content-based** aspect to connect a specified user taste profile to the catalog's available song metadata.
 
 ---
 
 ## How The System Works
 
-Explain your design in plain language.
+Our recommender calculates a similarity score for each track by matching its metadata to the user's defined preferences. It places priority on closely matching the vibe (energy) and the primary genre, similar to how content-based filtering functions at scale.
 
-Some prompts to answer:
+**Song Features Used:**
+- `genre` (String): e.g., Pop, Rock, Electronic
+- `mood` (String): e.g., Happy, Sad, Chill
+- `energy` (Float 0.0 - 1.0): Represents intensity/activity level
+- `tempo_bpm` (Integer): Speed of the track
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+**UserProfile Information:**
+- `favorite_genre` (String): The genre the user wants to hear
+- `favorite_mood` (String): The desired emotional vibe
+- `target_energy` (Float): The ideal energy level for recommendations
 
-You can include a simple diagram or bullet list if helpful.
+**Algorithm Recipe & Scoring Rule:**
+- **Genre Match:** +2.0 points if the song's genre exactly matches the user's favorite genre.
+- **Mood Match:** +1.0 point if the song's mood matches the user's target mood.
+- **Energy Similarity:** Up to +1.0 point. Calculated as `1.0 - absolute_difference(song_energy, target_energy)`, penalizing songs the further they drift from the target vibe.
 
----
+**Recommendation Logic:**
+Each song in the dataset is passed through the scoring function to compute a total score out of 4.0 points. The system then sorts all songs by this final score in descending order and returns the top `k` results as recommendations.
 
 ## Getting Started
 
