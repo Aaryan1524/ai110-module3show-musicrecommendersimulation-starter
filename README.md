@@ -38,6 +38,25 @@ Our recommender calculates a similarity score for each track by matching its met
 **Recommendation Logic:**
 Each song in the dataset is passed through the scoring function to compute a total score out of 4.0 points. The system then sorts all songs by this final score in descending order and returns the top `k` results as recommendations.
 
+**Process Visualization:**
+
+```mermaid
+flowchart TD
+    A[User Profile] --> B{Loop over data/songs.csv}
+    C[Song Data] --> B
+    B --> D[Calculate Genre Match: +2.0]
+    D --> E[Calculate Mood Match: +1.0]
+    E --> F[Calculate Energy Match: +0.0 to 1.0]
+    F --> G[Total Score 0-4.0]
+    G --> H[Sort by Score Descending]
+    H --> I[Output Top K Recommendations]
+```
+
+**Potential Biases Expected:**
+- The system heavily biases toward exact genre matches. A perfect mood and energy match outside the user's favorite genre can score at most 2.0, while a poorly-matched energy song with the right genre scores at least 2.0. This might trap users in a "genre bubble."
+- The limited 15-song catalog restricts variety and may fail to represent diverse minority genres fairly.
+
+
 ## Getting Started
 
 ### Setup
